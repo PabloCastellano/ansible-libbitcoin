@@ -1,0 +1,37 @@
+- name: Install system packages
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - apt-transport-https
+
+- name: Add libbitcoin repository
+  apt_repository: repo='deb http://libbitcoin.org/public jessie main' state=present
+
+- name: Add libbitcoin signing key
+  apt_key: url=https://libbitcoin.org/public/Release.key validate_certs=yes
+
+- name: Update apt cache
+  apt: update_cache=yes state=latest
+
+- name: Install system packages
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - libbitcoin-server
+#    - libbitcoin-explorer
+
+#- name: Configure ufw
+#  ufw: rule=allow port={{ item }} proto=tcp state=enabled
+#  with_items:
+#    - 8080
+#    - 8081
+#    - 8082
+#    - 9090
+#    - 9091
+#    - 9092
+#  notify:
+#    - restart ufw
+
+- name: Enable libbitcoin server daemon
+  lineinfile: dest=/etc/default/libbitcoin-server regexp="^RUN_DAEMON" line="RUN_DAEMON='yes'"
+
+- name: Start libbitcoin-server
+  service: name=libbitcoin-server state=restarted enabled=yes
