@@ -14,6 +14,15 @@ Then run the playbook:
 
     ansible-playbook -i hosts init.yml
 
+Vagrant
+=======
+
+You can also run it using vagrant:
+
+    vagrant up
+
+It will automatically redirect the query and heartbeat ports in the guest machine to 19091 and 19092 in the host machine.
+
 Author
 ======
 
