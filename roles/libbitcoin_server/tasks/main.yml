@@ -33,5 +33,8 @@
 - name: Enable libbitcoin server daemon
   lineinfile: dest=/etc/default/libbitcoin-server regexp="^RUN_DAEMON" line="RUN_DAEMON='yes'"
 
+- name: Enable query and heartbeat endpoints
+  lineinfile: dest=/etc/libbitcoin/bs.cfg regexp="^queries_enabled" line="queries_enabled = true"
+
 - name: Start libbitcoin-server
   service: name=libbitcoin-server state=restarted enabled=yes
