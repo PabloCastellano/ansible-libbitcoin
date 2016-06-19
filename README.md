@@ -1,7 +1,7 @@
 Ansible libbitcoin role
 =======================
 
-Installs a libbitcoin server using Debian packages.
+Installs a libbitcoin server using Debian packages. Supported distributions are Debian Jessie (8.0) and Ubuntu Xenial (16.04).
 
 First create your hosts file like:
 

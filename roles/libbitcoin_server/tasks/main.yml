@@ -2,9 +2,15 @@
   apt: name={{ item }} update_cache=yes state=latest
   with_items:
     - apt-transport-https
+  when: ansible_distribution == "Debian" and ansible_distribution_release == "jessie"
 
 - name: Add libbitcoin repository
   apt_repository: repo='deb http://libbitcoin.org/public jessie main' state=present
+  when: ansible_distribution == "Debian" and ansible_distribution_release == "jessie"
+
+- name: Add libbitcoin repository
+  apt_repository: repo='deb http://libbitcoin.org/ubuntu xenial main' state=present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "xenial"
 
 - name: Add libbitcoin signing key
   apt_key: url=https://libbitcoin.org/public/Release.key validate_certs=yes
